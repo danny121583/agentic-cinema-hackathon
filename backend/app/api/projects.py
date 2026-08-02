@@ -144,12 +144,12 @@ async def run_research(project_id: str, req: RunResearchRequest, background_task
     project.workflow_state = WorkflowState.RESEARCH_RUNNING
     await store.update_project(project)
 
-    # In a real app, this should be a robust background worker (e.g. Celery).
+    # We use FastAPI's BackgroundTasks for asynchronous execution
     background_tasks.add_task(execute_research_workflow, project_id, req.question_ids, plan, store)
     return {"status": "started"}
 
 async def execute_research_workflow(project_id: str, question_ids: List[str], plan: ResearchPlan, store: StorageProvider):
-    # This is a naive background execution for the hackathon prototype.
+    # Execute the research workflow asynchronously
     for q in plan.questions:
         if q.id in question_ids:
             now = datetime.now(timezone.utc)

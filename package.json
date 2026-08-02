@@ -1,0 +1,10 @@
+{
+  "name": "agentic-cinema-hackathon",
+  "private": true,
+  "devDependencies": {
+    "semantic-release": "^24.0.0"
+  },
+  "release": {
+    "branches": ["main"]
+  }
+}

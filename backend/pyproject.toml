@@ -15,7 +15,7 @@ dependencies = [
     "uvicorn>=0.29.0",
     "pydantic>=2.7.0",
     "pydantic-settings>=2.2.1",
-    "google-cloud-aiplatform[agent_engines,adk]>=1.101.0",
+    "google-cloud-aiplatform>=1.101.0",
     "parallel-web>=1.1.0",
     "firebase-admin>=6.5.0",
 ]

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ProjectResponse } from '../lib/api';
+import { ProjectResponse } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Calendar, Clock, MapPin, Sun, User, FileText, CheckCircle2 } from 'lucide-react';
 

@@ -15,7 +15,7 @@ export function ActivityView({ project }: ActivityViewProps) {
 
   useEffect(() => {
     loadData();
-    // In a real app, use websockets or polling here
+    // Connect to websocket or long-polling here
     const interval = setInterval(loadData, 5000);
     return () => clearInterval(interval);
   }, [project.id]);

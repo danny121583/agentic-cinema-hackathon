@@ -10,7 +10,16 @@ from app.services.base import StorageProvider
 class FirestoreStorage(StorageProvider):
     def __init__(self) -> None:
         if not firebase_admin._apps:
-            firebase_admin.initialize_app()
+            import os
+            import json
+            from firebase_admin import credentials
+            
+            cred_json = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON")
+            if cred_json:
+                cred = credentials.Certificate(json.loads(cred_json))
+                firebase_admin.initialize_app(cred)
+            else:
+                firebase_admin.initialize_app()
         self.db = firestore.client()
         self.collection = self.db.collection('projects')
 

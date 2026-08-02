@@ -9,7 +9,8 @@ import { BriefView } from './BriefView';
 import { ActivityView } from './ActivityView';
 import { SettingsModal } from './SettingsModal';
 import { OverviewView } from './OverviewView';
-import { ProjectResponse, api } from '../lib/api';
+import { api } from '../lib/api';
+import { ProjectResponse } from '@/types';
 
 interface WorkspaceShellProps {
   activeProject: ProjectResponse | null;
@@ -36,6 +37,22 @@ export function WorkspaceShell({ activeProject, onNewProject, onProjectCreated, 
       alert('Failed to create project. See console for details.');
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const [isReanalyzing, setIsReanalyzing] = useState(false);
+  const handleReanalyze = async (id: string) => {
+    setIsReanalyzing(true);
+    try {
+      await api.reanalyzeProject(id);
+      if (onRefreshProject) {
+        onRefreshProject();
+      }
+    } catch (error) {
+      console.error('Failed to reanalyze', error);
+      alert('Failed to reanalyze. See console for details.');
+    } finally {
+      setIsReanalyzing(false);
     }
   };
 
@@ -161,7 +178,11 @@ export function WorkspaceShell({ activeProject, onNewProject, onProjectCreated, 
                   </div>
                 )}
                 {activeTab === 'breakdown' && activeProject.breakdown && (
-                  <ProjectDetails project={activeProject} />
+                  <ProjectDetails 
+                    project={activeProject} 
+                    onReanalyze={handleReanalyze} 
+                    isReanalyzing={isReanalyzing} 
+                  />
                 )}
                 {activeTab === 'research' && (
                   <ResearchView project={activeProject} onRefreshProject={onRefreshProject} />

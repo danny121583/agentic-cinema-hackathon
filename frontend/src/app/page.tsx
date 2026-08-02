@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { WorkspaceShell } from '../components/WorkspaceShell';
-import { ProjectResponse, api } from '../lib/api';
+import { api } from '../lib/api';
+import { ProjectResponse } from '@/types';
 
 export default function Home() {
   const [projects, setProjects] = useState<ProjectResponse[]>([]);

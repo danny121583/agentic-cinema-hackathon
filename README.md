@@ -62,9 +62,9 @@ To use Firestore for persistence instead of memory:
 1. Authenticate with Google Cloud.
 2. Set `SCENESCOUT_USE_IN_MEMORY_STORE=false` in `backend/.env`.
 
-### Parallel Web Search (Placeholder)
-Parallel search integration is currently prepared but disabled for this iteration. 
-You can add your key to `PARALLEL_API_KEY` in `backend/.env`.
+### Parallel Web Search
+Parallel search integration is fully implemented and used to ground the research planner's output.
+You must add your key to `PARALLEL_API_KEY` in `backend/.env`.
 
 ## Backend Commands
 - **Run dev server**: `uvicorn app.main:app --reload`
@@ -84,6 +84,5 @@ You can add your key to `PARALLEL_API_KEY` in `backend/.env`.
 - **Iteration 01**: Script Breakdown Agent and Persistence completed. Includes full structured output schema, Mock and Real AI execution modes, Firestore/In-Memory storage abstractions, and Playwright E2E tests.
 
 ## Known Limitations
-- Parallel search is not actively queried yet.
 - No user authentication.
 - Storyboard/media generation is pending future iterations.

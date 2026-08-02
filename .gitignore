@@ -44,8 +44,13 @@ firestore-data/
 .firebase/
 firebase-export/
 
+# GCP / Firebase Service Accounts
+*serviceAccount*.json
+*firebase-adminsdk*.json
+
 # IDEs
 .idea/
 .vscode/
 *.swp
 *.swo
+.vercel
