@@ -55,3 +55,4 @@ firebase-export/
 *.swo
 .vercel
 .gemini/
+.agents/
