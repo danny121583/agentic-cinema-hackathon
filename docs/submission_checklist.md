@@ -4,8 +4,8 @@ Before submitting to Devpost, ensure all of the following requirements are met:
 
 ## 1. Code Repository
 - [x] **Open-Source License:** An OSI-approved license (e.g. MIT) is included at the top level of the repository.
-- [ ] **Public Repository:** Ensure the GitHub (or other host) repository visibility is set to Public.
-- [ ] **Complete Source Code:** Ensure all frontend and backend code, assets, and documentation are committed and pushed.
+- [x] **Public Repository:** Ensure the GitHub (or other host) repository visibility is set to Public.
+- [x] **Complete Source Code:** Ensure all frontend and backend code, assets, and documentation are committed and pushed.
 - [ ] **Setup Instructions:** The `README.md` clearly explains how a judge can run the code locally.
 
 ## 2. Technical Integration
