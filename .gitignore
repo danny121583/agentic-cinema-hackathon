@@ -54,3 +54,4 @@ firebase-export/
 *.swp
 *.swo
 .vercel
+.gemini/
