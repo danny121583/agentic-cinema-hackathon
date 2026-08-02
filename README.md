@@ -27,7 +27,7 @@ pip install -e ".[dev]"
 # Copy the environment configuration
 cp .env.example .env
 ```
-*(Optional)* To test **Live Mode**, edit `backend/.env` and set `SCENESCOUT_USE_MOCK_AI=false`, then add your `GEMINI_API_KEY` and `PARALLEL_API_KEY`.
+*(Optional)* To test **Live Mode**, edit `backend/.env` and set `SCENESCOUT_USE_MOCK_AI=false` and `GOOGLE_GENAI_USE_VERTEXAI=false`, then add your `GEMINI_API_KEY` and `PARALLEL_API_KEY`.
 
 Start the backend server:
 ```bash
