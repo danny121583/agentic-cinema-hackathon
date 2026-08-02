@@ -9,9 +9,9 @@ Before submitting to Devpost, ensure all of the following requirements are met:
 - [x] **Setup Instructions:** The `README.md` clearly explains how a judge can run the code locally.
 
 ## 2. Technical Integration
-- [ ] **Real Gemini AI:** Switch from `Mock AI` mode to real API calls. (`SCENESCOUT_USE_MOCK_AI=false`)
-- [ ] **Parallel API Integration:** Ensure the application makes live calls to the Parallel API and uses the returned data in the agent's workflow. (Remove the mock fallback or ensure it's bypassed for production).
-- [ ] **Google Cloud Usage:** The agent uses Google Cloud Agent Builder or the Gemini API SDK in runtime (demonstrated by logs/output).
+- [x] **Real Gemini AI:** Switch from `Mock AI` mode to real API calls. (`SCENESCOUT_USE_MOCK_AI=false`)
+- [x] **Parallel API Integration:** Ensure the application makes live calls to the Parallel API and uses the returned data in the agent's workflow.
+- [x] **Google Cloud Usage:** Demonstrate the agent using Google Cloud Agent Builder or the Gemini API SDK in runtime. (demonstrated by logs/output).
 
 ## 3. Hosting & Deployment
 - [ ] **Live URL:** Deploy the application so it is accessible via a public URL. 
