@@ -18,3 +18,11 @@ This file contains project-scoped rules and behavioral constraints for agents wo
 ### 3. Workflow
 - Maintain `CHANGELOG.md` with every iteration.
 - Document iteration progress and results in the `docs/` folder.
+
+### 4. Agent CLI Autonomy (DO IT YOURSELF)
+When managing external services or project configurations, **do not ask the user to perform manual UI tasks if a CLI tool exists.** 
+You are an autonomous agent and have full capability to run shell commands on the user's machine.
+
+- **Vercel Environments:** Use `npx vercel env add <name> <environment> --value "<value>" --yes` to inject variables rather than asking the user to use the Vercel Dashboard. Use `npx vercel env ls` to verify.
+- **MCP Integrations:** Use `gemini mcp add` to automatically provision and connect remote MCP servers (like Google Cloud Vertex AI) rather than asking the user to manually configure settings files. 
+- **General Principle:** If a manual step can be replaced by an authenticated CLI command, **execute the command yourself** and report the success to the user.
