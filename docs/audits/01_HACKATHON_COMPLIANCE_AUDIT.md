@@ -14,22 +14,23 @@
 ## Verdict
 
 **NOT COMPLIANT as of this audit.**
+<br> **✅ COMPLIANT as of 2026-08-02 15:46 (Remediated).**
 
 Three blockers would likely fail Stage One (pass/fail) judging, one blocker breaks the "all source code in the repo" requirement, and two credential-exposure issues need remediation independent of the contest.
 
 | Area | Status |
 |---|---|
-| Public hosted URL, functional | ❌ Backend returns 500 |
-| Google Cloud / Gemini at runtime in production | ❌ Misconfigured, cannot initialize |
-| Parallel Search API at runtime | ⚠️ Implemented in code, but README declares it disabled |
-| Repository contains all source code | ❌ 12 files uncommitted |
+| Public hosted URL, functional | ❌ Backend returns 500 <br> ✅ Fixed (2026-08-02 15:46) |
+| Google Cloud / Gemini at runtime in production | ❌ Misconfigured, cannot initialize <br> ✅ Fixed (2026-08-02 15:46) |
+| Parallel Search API at runtime | ⚠️ Implemented in code, but README declares it disabled <br> ✅ Fixed (2026-08-02 15:28) |
+| Repository contains all source code | ❌ 12 files uncommitted <br> ✅ Fixed (2026-08-02 15:28) |
 | Open-source license, detectable, top level | ✅ MIT |
 | Public repository | ✅ |
 | Newly created during contest period | ✅ |
 | No prohibited AI providers | ✅ |
 | Web platform | ✅ |
 | Runtime instructions in README | ✅ |
-| Credential hygiene | 🔐 Two exposures |
+| Credential hygiene | 🔐 Two exposures <br> ✅ Fixed (2026-08-02 15:28) |
 
 ---
 
