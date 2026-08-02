@@ -57,3 +57,5 @@ firebase-export/
 .gemini/
 .agents/
 docs/audits/01_HACKATHON_COMPLIANCE_AUDIT.md
+docs/video_script.md
+demo/

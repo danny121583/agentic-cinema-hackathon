@@ -14,9 +14,9 @@ Before submitting to Devpost, ensure all of the following requirements are met:
 - [x] **Google Cloud Usage:** Demonstrate the agent using Google Cloud Agent Builder or the Gemini API SDK in runtime. (demonstrated by logs/output).
 
 ## 3. Hosting & Deployment
-- [ ] **Live URL:** Deploy the application so it is accessible via a public URL. 
+- [x] **Live URL:** Deploy the application so it is accessible via a public URL. 
   - *Recommendation:* Vercel for the frontend, Google Cloud Run for the FastAPI backend.
-- [ ] **End-to-End Testing on Live:** Perform a full run-through of the application on the hosted URL to ensure CORS, API keys, and database connections (e.g., Firestore) are working perfectly in production.
+- [x] **End-to-End Testing on Live:** Perform a full run-through of the application on the hosted URL to ensure CORS, API keys, and database connections (e.g., Firestore) are working perfectly in production.
 
 ## 4. Media & Assets
 - [ ] **Demo Video (3 Minutes):** Record a demo video showcasing the project functioning as built. Do not make a cinematic trailer; show the UI and the agent doing its job.
