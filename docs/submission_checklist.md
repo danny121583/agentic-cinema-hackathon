@@ -6,7 +6,7 @@ Before submitting to Devpost, ensure all of the following requirements are met:
 - [x] **Open-Source License:** An OSI-approved license (e.g. MIT) is included at the top level of the repository.
 - [x] **Public Repository:** Ensure the GitHub (or other host) repository visibility is set to Public.
 - [x] **Complete Source Code:** Ensure all frontend and backend code, assets, and documentation are committed and pushed.
-- [ ] **Setup Instructions:** The `README.md` clearly explains how a judge can run the code locally.
+- [x] **Setup Instructions:** The `README.md` clearly explains how a judge can run the code locally.
 
 ## 2. Technical Integration
 - [ ] **Real Gemini AI:** Switch from `Mock AI` mode to real API calls. (`SCENESCOUT_USE_MOCK_AI=false`)

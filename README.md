@@ -8,41 +8,49 @@ An evidence-grounded pre-production research and planning agent for filmmakers.
 - **Storage**: In-memory (mock) and Firestore (production).
 - **AI Integration**: Google Gemini models via Vertex AI, and Parallel Web Search SDK.
 
-## Local Setup
+## Getting Started (For Hackathon Judges)
+
+You can run the entire application locally in either **Mock Mode** (no API keys required) or **Live Mode** (using real Gemini and Parallel APIs). 
 
 ### Prerequisites
 - Node.js (>= 20)
 - Python (>= 3.10)
-- Google Cloud CLI (`gcloud`)
 
-### Quick Start (Mock Mode)
-You can run the entire application locally without any cloud credentials by using Mock AI mode.
+### 1. Backend Setup
+Open a terminal and run the following:
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -e ".[dev]"
 
-1. **Backend Setup**:
-   ```bash
-   cd backend
-   python -m venv venv
-   source venv/bin/activate
-   pip install -e ".[dev]"
-   
-   # Copy env config
-   cp .env.example .env
-   # Ensure SCENESCOUT_USE_MOCK_AI=true in .env
-   
-   uvicorn app.main:app --reload
-   ```
+# Copy the environment configuration
+cp .env.example .env
+```
+*(Optional)* To test **Live Mode**, edit `backend/.env` and set `SCENESCOUT_USE_MOCK_AI=false`, then add your `GEMINI_API_KEY` and `PARALLEL_API_KEY`.
 
-2. **Frontend Setup**:
-   ```bash
-   cd frontend
-   npm install
-   
-   # Copy env config
-   cp .env.example .env.local
-   
-   npm run dev
-   ```
+Start the backend server:
+```bash
+uvicorn app.main:app --reload
+```
+*The backend API will run at `http://localhost:8000`*
 
+### 2. Frontend Setup
+Open a **new** terminal and run the following:
+```bash
+cd frontend
+npm install
+
+# Copy the environment configuration
+cp .env.example .env.local
+
+# Start the frontend
+npm run dev
+```
+*The frontend UI will run at `http://localhost:3000`*
+
+### 3. Usage
+Navigate to `http://localhost:3000` in your browser. You can create a new project, write a scene breakdown, and generate a production brief. If you left `SCENESCOUT_USE_MOCK_AI=true`, all generation will use deterministic local mocks to simulate the AI workflow.
 ### Real Gemini Configuration
 To use real Google Gemini models:
 1. Authenticate with Google Cloud: `gcloud auth application-default login`
