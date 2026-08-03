@@ -26,6 +26,8 @@ htmlcov/
 .ruff_cache/
 poetry.lock
 Pipfile.lock
+# Stale setuptools output shadows real sources during the Vercel Python build
+*.egg-info/
 
 # Node/Next.js
 node_modules/
@@ -59,3 +61,17 @@ firebase-export/
 docs/audits/01_HACKATHON_COMPLIANCE_AUDIT.md
 docs/video_script.md
 demo/
+
+# Playwright reports and screenshots
+playwright/
+frontend/playwright-report/
+frontend/test-results/
+.env*
+# Keep the committed templates: the broad .env* rule above overrides the
+# earlier !.env.example negation, which would otherwise drop them from the repo.
+!**/.env.example
+
+# Local Agent Configs
+GEMINI.md
+frontend/CLAUDE.md
+.claude/

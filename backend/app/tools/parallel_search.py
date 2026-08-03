@@ -28,8 +28,7 @@ class ParallelSearchClient:
         Executes a live search against the Parallel API. 
         Falls back to a deterministic fake response if in mock mode or lacking an API key.
         """
-        # If explicitly in mock mode or lacking an API key, use the fake implementation
-        if settings.scenescout_use_mock_ai or not self.client:
+        if settings.scenescout_use_mock_ai:
             await asyncio.sleep(1) # Simulate network latency
             return ParallelSearchResponse(
                 query=query,
@@ -42,6 +41,9 @@ class ParallelSearchClient:
                     }
                 ]
             )
+            
+        if not self.client:
+            raise ValueError("PARALLEL_API_KEY is not configured.")
 
         try:
             logger.info(f"Executing live Parallel search for query: {query}")

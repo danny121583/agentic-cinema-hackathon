@@ -22,6 +22,10 @@ class StorageProvider(ABC):
         pass
 
     @abstractmethod
+    async def delete_project(self, project_id: str) -> bool:
+        pass
+
+    @abstractmethod
     async def save_research_plan(self, project_id: str, plan: ResearchPlan) -> ResearchPlan:
         pass
 

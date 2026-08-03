@@ -2,8 +2,7 @@ import {
   ProjectCreate, ProjectResponse, ResearchPlan, Finding, ProductionBrief, ActivityEvent 
 } from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-  (typeof window !== "undefined" ? "" : "http://localhost:8000");
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -41,6 +40,9 @@ export const api = {
     
   listProjects: () => 
     fetchApi<ProjectResponse[]>("/api/projects"),
+    
+  deleteProject: (id: string) =>
+    fetchApi<{status: string}>(`/api/projects/${id}`, { method: "DELETE" }),
     
   reanalyzeProject: (id: string) => 
     fetchApi<ProjectResponse>(`/api/projects/${id}/reanalyze`, {

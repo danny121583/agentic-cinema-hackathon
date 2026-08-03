@@ -2,47 +2,56 @@ import { test, expect } from '@playwright/test';
 
 test('create project flow', async ({ page }) => {
   // Mock the API response to avoid hitting the real backend
-  await page.route('/api/projects', async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
-        id: "test-id",
-        title: "Test Project",
-        scene_text: "A dark alleyway.",
-        status: "completed",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        breakdown: {
-          project_id: "test-id",
-          project_title: "Test Project",
-          short_scene_summary: "Two characters meet in a rainy alleyway to exchange a mysterious package.",
-          setting: "Alleyway",
-          time_period: "Present Day",
-          time_of_day: "Night",
-          interior_or_exterior: "Exterior",
-          characters: ["John", "Mysterious Stranger"],
-          locations: ["City Alleyway"],
-          props: ["Mysterious Package", "Umbrella"],
-          wardrobe_requirements: ["Trench coat", "Dark clothing"],
-          vehicles: [],
-          weather_requirements: ["Heavy Rain"],
-          safety_considerations: ["Wet surfaces", "Night shooting logistics"],
-          logistical_considerations: ["Rain machines", "Lighting the alleyway"],
-          continuity_risks: ["Rain levels on clothing"],
-          unresolved_questions: ["What is inside the package?"],
-          research_questions: [
-            {
-              question: "What permits are required for rain machines in downtown alleyways?",
-              reason: "Necessary for planning the logistics of the shot."
-            }
-          ],
-          generated_timestamp: new Date().toISOString(),
-          model_metadata: "MOCK_AI",
-          status: "completed"
-        }
-      })
-    });
+  await page.route('**/api/projects', async (route, request) => {
+    if (request.method() === 'GET') {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([])
+      });
+    } else {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          id: "test-id",
+          title: "Test Project",
+          scene_text: "A dark alleyway.",
+          workflow_state: "breakdown_complete",
+          status: "completed",
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          breakdown: {
+            project_id: "test-id",
+            project_title: "Test Project",
+            short_scene_summary: "Two characters meet in a rainy alleyway to exchange a mysterious package.",
+            setting: "Alleyway",
+            time_period: "Present Day",
+            time_of_day: "Night",
+            interior_or_exterior: "Exterior",
+            characters: ["John", "Mysterious Stranger"],
+            locations: ["City Alleyway"],
+            props: ["Mysterious Package", "Umbrella"],
+            wardrobe_requirements: ["Trench coat", "Dark clothing"],
+            vehicles: [],
+            weather_requirements: ["Heavy Rain"],
+            safety_considerations: ["Wet surfaces", "Night shooting logistics"],
+            logistical_considerations: ["Rain machines", "Lighting the alleyway"],
+            continuity_risks: ["Rain levels on clothing"],
+            unresolved_questions: ["What is inside the package?"],
+            research_questions: [
+              {
+                question: "What permits are required for rain machines in downtown alleyways?",
+                reason: "Necessary for planning the logistics of the shot."
+              }
+            ],
+            generated_timestamp: new Date().toISOString(),
+            model_metadata: "MOCK_AI",
+            status: "completed"
+          }
+        })
+      });
+    }
   });
 
   await page.goto('/');
@@ -55,8 +64,9 @@ test('create project flow', async ({ page }) => {
   await page.click('button[type="submit"]');
 
   // Verify result is displayed
-  await expect(page.locator('h2', { hasText: 'Test Project' })).toBeVisible();
-  await expect(page.locator('p', { hasText: 'Status: completed' })).toBeVisible();
+  await expect(page.locator('h1', { hasText: 'Test Project' })).toBeVisible();
+  await expect(page.locator('text=BREAKDOWN COMPLETE').first()).toBeVisible();
+  await page.click('button:has-text("Breakdown")');
   await expect(page.locator('p', { hasText: 'Two characters meet in a rainy alleyway' })).toBeVisible();
   await expect(page.locator('p', { hasText: 'What permits are required for rain machines in downtown alleyways?' })).toBeVisible();
 });

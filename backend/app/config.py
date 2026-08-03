@@ -8,9 +8,10 @@ class Settings(BaseSettings):
     google_cloud_project: Optional[str] = Field(default=None, validation_alias="GOOGLE_CLOUD_PROJECT")
     google_cloud_location: Optional[str] = Field(default=None, validation_alias="GOOGLE_CLOUD_LOCATION")
     google_genai_use_vertexai: bool = Field(default=True, validation_alias="GOOGLE_GENAI_USE_VERTEXAI")
-    gemini_model: str = Field(default="gemini-1.5-flash-001", validation_alias="GEMINI_MODEL")
+    gemini_model: str = Field(default="gemini-2.5-flash", validation_alias="GEMINI_MODEL")
     gemini_api_key: Optional[str] = Field(default=None, validation_alias="GEMINI_API_KEY")
     parallel_api_key: Optional[str] = Field(default=None, validation_alias="PARALLEL_API_KEY")
+    firebase_service_account_json: Optional[str] = Field(default=None, validation_alias="FIREBASE_SERVICE_ACCOUNT_JSON")
     firestore_emulator_host: Optional[str] = Field(default=None, validation_alias="FIRESTORE_EMULATOR_HOST")
 
     scenescout_use_mock_ai: bool = Field(default=True, validation_alias="SCENESCOUT_USE_MOCK_AI")

@@ -96,7 +96,7 @@ export function ResearchView({ project, onRefreshProject }: ResearchViewProps) {
     loadData();
   };
 
-  if (isLoading) return <div>Loading research data...</div>;
+  if (isLoading && !plan) return <div>Loading research data...</div>;
 
   if (!plan) {
     return (
@@ -131,7 +131,7 @@ export function ResearchView({ project, onRefreshProject }: ResearchViewProps) {
             disabled={isGenerating || project.workflow_state === 'research_running'}
             className="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
           >
-            <Play size={16} /> {isGenerating ? 'Starting Agents...' : 'Run Selected Questions'}
+            <Play size={16} /> {isGenerating || project.workflow_state === 'research_running' ? 'Agents Running...' : 'Run Selected Questions'}
           </button>
         </div>
         <div className="divide-y divide-slate-100 dark:divide-slate-800">

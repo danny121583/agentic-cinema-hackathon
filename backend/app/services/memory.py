@@ -27,6 +27,17 @@ class InMemoryStorage(StorageProvider):
         self._store[project.id] = project
         return project
 
+    async def delete_project(self, project_id: str) -> bool:
+        if project_id in self._store:
+            del self._store[project_id]
+            self._plans.pop(project_id, None)
+            self._executions.pop(project_id, None)
+            self._findings.pop(project_id, None)
+            self._briefs.pop(project_id, None)
+            self._events.pop(project_id, None)
+            return True
+        return False
+
     async def save_research_plan(self, project_id: str, plan: ResearchPlan) -> ResearchPlan:
         self._plans[project_id] = plan
         return plan

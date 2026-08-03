@@ -9,7 +9,7 @@ from app.models.breakdown import ScriptBreakdown
 from app.models.research import WorkflowState
 
 class ProjectCreate(BaseModel):
-    title: str = Field(..., min_length=1)
+    title: Optional[str] = None
     scene_text: str = Field(..., min_length=1)
     notes: Optional[str] = None
 

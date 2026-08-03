@@ -51,13 +51,12 @@ export function ScriptInputForm({ onSubmit, isLoading }: Props) {
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="title">Project Title</Label>
+            <Label htmlFor="title">Project Title (Optional)</Label>
             <Input 
               id="title" 
               value={title} 
               onChange={(e) => setTitle(e.target.value)} 
-              placeholder="e.g., The Great Heist"
-              required 
+              placeholder="e.g., The Great Heist (Leave blank for AI generation)"
             />
           </div>
           <div className="space-y-2">
@@ -83,7 +82,7 @@ export function ScriptInputForm({ onSubmit, isLoading }: Props) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" disabled={isLoading || !title || !sceneText} className="w-full">
+          <Button type="submit" disabled={isLoading || !sceneText} className="w-full">
             {isLoading ? "Analyzing..." : "Analyze Scene"}
           </Button>
         </CardFooter>

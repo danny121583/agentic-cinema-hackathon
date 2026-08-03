@@ -10,11 +10,11 @@ from app.services.base import StorageProvider
 class FirestoreStorage(StorageProvider):
     def __init__(self) -> None:
         if not firebase_admin._apps:
-            import os
             import json
             from firebase_admin import credentials
+            from app.config import settings
             
-            cred_json = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON")
+            cred_json = settings.firebase_service_account_json
             if cred_json:
                 cred = credentials.Certificate(json.loads(cred_json))
                 firebase_admin.initialize_app(cred)
@@ -42,6 +42,22 @@ class FirestoreStorage(StorageProvider):
         doc_ref = self.collection.document(project.id)
         doc_ref.set(project.model_dump(mode="json"))
         return project
+
+    async def delete_project(self, project_id: str) -> bool:
+        doc_ref = self.collection.document(project_id)
+        if not doc_ref.get().exists:
+            return False
+            
+        # Delete subcollections
+        for subcoll_name in ['research_plans', 'search_executions', 'findings', 'briefs', 'activity_events']:
+            subcoll = doc_ref.collection(subcoll_name)
+            docs = subcoll.limit(100).stream()
+            for doc in docs:
+                doc.reference.delete()
+                
+        # Delete main document
+        doc_ref.delete()
+        return True
 
     async def save_research_plan(self, project_id: str, plan: ResearchPlan) -> ResearchPlan:
         doc_ref = self.collection.document(project_id).collection('research_plans').document(plan.id)

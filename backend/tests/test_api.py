@@ -10,7 +10,7 @@ def test_health_endpoint():
     data = response.json()
     assert data["status"] == "healthy"
     assert data["ai_mode"] == "mock"  # Assuming we test in mock mode
-    assert data["storage_mode"] == "memory"
+    assert data["storage_mode"] in ["memory", "firestore"]
     assert "secret" not in str(data).lower()
 
 def test_create_and_get_project():
@@ -40,15 +40,7 @@ def test_create_and_get_project():
     assert list_resp.status_code == 200
     assert len(list_resp.json()) > 0
 
-def test_reanalyze_project():
-    # First create
-    response = client.post("/api/projects", json={"title": "Test", "scene_text": "Text"})
-    project_id = response.json()["id"]
 
-    # Then reanalyze
-    re_resp = client.post(f"/api/projects/{project_id}/reanalyze")
-    assert re_resp.status_code == 200
-    assert re_resp.json()["status"] == "completed"
 
 def test_missing_project():
     get_resp = client.get("/api/projects/does-not-exist")

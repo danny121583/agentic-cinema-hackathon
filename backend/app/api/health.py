@@ -23,5 +23,6 @@ def health_check() -> Dict[str, Any]:
             (settings.google_cloud_project if settings.google_genai_use_vertexai else settings.gemini_api_key)
             and not settings.scenescout_use_mock_ai
         ),
-        "parallel_config_available": bool(settings.parallel_api_key)
+        "parallel_config_available": bool(settings.parallel_api_key),
+        "firebase_config_available": bool(settings.firebase_service_account_json),
     }

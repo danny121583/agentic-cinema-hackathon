@@ -34,6 +34,10 @@ export default function Home() {
   };
 
   const handleSelectProject = async (id: string) => {
+    if (!id) {
+      setActiveProject(null);
+      return;
+    }
     try {
       const project = await api.getProject(id);
       setActiveProject(project);
@@ -56,6 +60,7 @@ export default function Home() {
       onRefreshProject={() => {
         if (activeProject) handleSelectProject(activeProject.id);
       }}
+      onRefreshProjectList={loadProjects}
     />
   );
 }

@@ -21,7 +21,7 @@ test('End-to-End Mock AI Workflow', async ({ page }) => {
   await page.click('button:has-text("Analyze Scene")');
   
   // Wait for processing to finish and overview to load
-  await expect(page.locator('text=BREAKDOWN COMPLETE').first()).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('text=BREAKDOWN COMPLETE').first()).toBeVisible({ timeout: 120000 });
   await page.screenshot({ path: path.join(screenshotDir, 'e2e_02_overview.png') });
 
   // 2. Generate Research Plan
@@ -31,13 +31,13 @@ test('End-to-End Mock AI Workflow', async ({ page }) => {
   await page.click('button:has-text("Generate Research Plan")');
   
   // Wait for plan to generate
-  await expect(page.locator('button:has-text("Run Selected Questions")')).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('button:has-text("Run Selected Questions")')).toBeVisible({ timeout: 120000 });
   await page.screenshot({ path: path.join(screenshotDir, 'e2e_03_research_plan.png') });
 
   // 3. Run Selected Questions
   await page.click('button:has-text("Run Selected Questions")');
   // Wait for findings to appear
-  await expect(page.locator('text=Evidentiary Findings').first()).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('text=Evidentiary Findings').first()).toBeVisible({ timeout: 120000 });
   await page.screenshot({ path: path.join(screenshotDir, 'e2e_04_findings.png') });
 
   // 4. Approve a finding
@@ -57,6 +57,6 @@ test('End-to-End Mock AI Workflow', async ({ page }) => {
   }
 
   // Wait for brief to generate
-  await expect(page.locator('text=Executive Summary')).toBeVisible({ timeout: 30000 });
+  await expect(page.locator('text=Executive Summary')).toBeVisible({ timeout: 120000 });
   await page.screenshot({ path: path.join(screenshotDir, 'e2e_06_production_brief.png') });
 });

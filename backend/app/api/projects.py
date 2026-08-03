@@ -21,11 +21,7 @@ from app.services.memory import InMemoryStorage
 
 router = APIRouter()
 
-storage: StorageProvider
-if settings.scenescout_use_in_memory_store:
-    storage = InMemoryStorage()
-else:
-    storage = FirestoreStorage()
+_storage: StorageProvider | None = None
 
 breakdown_agent = ScriptBreakdownAgent()
 planner_agent = ResearchPlannerAgent()
@@ -34,7 +30,16 @@ brief_agent = ProductionBriefAgent()
 search_client = ParallelSearchClient()
 
 def get_storage() -> StorageProvider:
-    return storage
+    # Built on first use rather than at import: a bad Firestore credential
+    # should fail the request that needs it, not take the whole app down
+    # (including /health) with an import-time error.
+    global _storage
+    if _storage is None:
+        if settings.scenescout_use_in_memory_store:
+            _storage = InMemoryStorage()
+        else:
+            _storage = FirestoreStorage()
+    return _storage
 
 @router.post("/projects", response_model=ProjectResponse)
 async def create_project(
@@ -44,9 +49,11 @@ async def create_project(
     project_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc)
 
+    actual_title = project_in.title.strip() if project_in.title and project_in.title.strip() else "Untitled Scene"
+
     project = ProjectResponse(
         id=project_id,
-        title=project_in.title,
+        title=actual_title,
         scene_text=project_in.scene_text,
         notes=project_in.notes,
         status="processing",
@@ -66,6 +73,10 @@ async def create_project(
         project.breakdown = breakdown
         project.status = "completed"
         project.workflow_state = WorkflowState.BREAKDOWN_COMPLETE
+        
+        if not project_in.title or not project_in.title.strip():
+            if breakdown.project_title:
+                project.title = breakdown.project_title
     except Exception as e:
         project.status = f"error: {str(e)}"
 
@@ -94,6 +105,13 @@ async def get_project(project_id: str, store: StorageProvider = Depends(get_stor
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     return project
+
+@router.delete("/projects/{project_id}")
+async def delete_project(project_id: str, store: StorageProvider = Depends(get_storage)):
+    success = await store.delete_project(project_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return {"status": "deleted"}
 
 @router.post("/projects/{project_id}/research/plan", response_model=ResearchPlan)
 async def generate_research_plan(project_id: str, store: StorageProvider = Depends(get_storage)) -> ResearchPlan:

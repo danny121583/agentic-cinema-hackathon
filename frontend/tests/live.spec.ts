@@ -25,7 +25,7 @@ test('live create project flow', async ({ page }) => {
   await expect(page.locator('h1', { hasText: uniqueTitle })).toBeVisible({ timeout: 120000 });
   
   // The status chip should show BREAKDOWN COMPLETE
-  await expect(page.locator('text=BREAKDOWN COMPLETE').first()).toBeVisible();
+  await expect(page.locator('text=BREAKDOWN COMPLETE').first()).toBeVisible({ timeout: 120000 });
   
   // Switch to the Breakdown tab
   await page.click('button:has-text("Breakdown")');
@@ -36,4 +36,16 @@ test('live create project flow', async ({ page }) => {
   await expect(page.locator('text=Cast & Characters')).toBeVisible();
   await expect(page.locator('text=Props & Wardrobe')).toBeVisible();
   await expect(page.locator('h4', { hasText: 'Logistical Considerations' })).toBeVisible();
+  
+  // Switch to Research tab
+  await page.click('button:has-text("Research")');
+  
+  // Check the first research question
+  await page.locator('button[role="checkbox"]').first().click();
+  
+  // Run research
+  await page.click('button:has-text("Run Selected Questions")');
+  
+  // Wait for findings to appear
+  await expect(page.locator('text=Evidentiary Findings').first()).toBeVisible({ timeout: 120000 });
 });
